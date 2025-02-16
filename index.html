@@ -27,48 +27,38 @@
                 --text-secondary: #d1d5db;
             }
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Rubik', sans-serif;
         }
-
-        /* Added RTL specific styles */
-        body {
-            background: var(--background);
-            min-height: 100vh;
-            color: var(--text);
-            transition: background-color 0.3s;
-            direction: rtl;
-            text-align: right;
-        }
-
-        .search-box {
-            text-align: right;
-            direction: rtl;
-        }
-
-        .filter-buttons {
-            justify-content: flex-start;
-        }
-
-        @media (max-width: 640px) {
-            .filter-buttons {
-                justify-content: center;
-            }
-        }
-
-        /* Rest of the CSS remains the same as provided, just removing RTL-specific properties */
         
         body {
             background: var(--background);
             min-height: 100vh;
             color: var(--text);
             transition: background-color 0.3s;
+            direction: rtl;
+            text-align: right;
         }
-
+        
+        .search-box {
+            text-align: right;
+            direction: rtl;
+        }
+        
+        .filter-buttons {
+            justify-content: flex-start;
+        }
+        
+        @media (max-width: 640px) {
+            .filter-buttons {
+                justify-content: center;
+            }
+        }
+        
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
@@ -76,7 +66,7 @@
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
+        
         .logo {
             width: 200px;
             height: 200px;
@@ -85,30 +75,30 @@
             align-items: center;
             justify-content: center;
         }
-
+        
         .logo img {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
-
+        
         header h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             font-weight: 600;
         }
-
+        
         header h2 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             font-weight: 600;
         }
-
+        
         header p {
             font-size: 1.4rem;
             opacity: 0.9;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 2rem auto;
@@ -117,14 +107,14 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
-
+        
         .card {
             background: transparent;
             height: 300px;
             perspective: 1000px;
             cursor: pointer;
         }
-
+        
         .card-inner {
             position: relative;
             width: 100%;
@@ -132,17 +122,17 @@
             transform-style: preserve-3d;
             transition: transform 0.8s;
         }
-
+        
         .card-inner.flipped {
             transform: rotateY(180deg);
         }
-
+        
         @media (hover: hover) {
             .card:hover .card-inner {
                 transform: rotateY(180deg);
             }
         }
-
+        
         .card-front, .card-back {
             position: absolute;
             width: 100%;
@@ -159,11 +149,12 @@
             background: var(--card-bg);
             transition: background-color 0.3s;
         }
-
+        
         .card-back {
             transform: rotateY(180deg);
+            justify-content: space-between;
         }
-
+        
         .tool-name {
             font-family: 'Rubik', sans-serif;
             color: var(--primary);
@@ -171,50 +162,56 @@
             font-size: 1.5rem;
             font-weight: 600;
         }
-
-        .card-link {
-            text-decoration: none;
-            color: inherit;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
+        
         .card-front p {
             color: var(--text-secondary);
             font-size: 1.1rem;
         }
-
+        
         .card-back p {
             color: var(--text);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             font-size: 0.95rem;
             line-height: 1.5;
         }
-
-        .card-back a {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
+        
+        .card-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+            width: 100%;
+        }
+        
+        .card-button {
+            flex: 1;
+            padding: 0.75rem 1rem;
             background: var(--primary);
             color: white;
             text-decoration: none;
             border-radius: 0.5rem;
             transition: background 0.3s;
+            text-align: center;
+            font-size: 0.9rem;
         }
-
-        .card-back a:hover {
+        
+        .card-button:hover {
             background: var(--primary-dark);
         }
-
+        
+        .card-button.github {
+            background: #333;
+        }
+        
+        .card-button.github:hover {
+            background: #000;
+        }
+        
         .search-filter-container {
             max-width: 1200px;
             margin: 2rem auto 1rem;
             padding: 0 1rem;
         }
-
+        
         .search-box {
             width: 100%;
             padding: 0.75rem 1rem;
@@ -227,19 +224,19 @@
             transition: border-color 0.3s;
             font-family: 'Rubik', sans-serif;
         }
-
+        
         .search-box:focus {
             outline: none;
             border-color: var(--primary-dark);
         }
-
+        
         .filter-buttons {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
             margin-bottom: 1rem;
         }
-
+        
         .filter-btn {
             padding: 0.5rem 1rem;
             border: none;
@@ -251,24 +248,24 @@
             font-family: 'Rubik', sans-serif;
             border: 1px solid var(--primary);
         }
-
+        
         .filter-btn.active {
             background: var(--primary);
             color: white;
         }
-
+        
         .filter-btn:hover {
             background: var(--primary-dark);
             color: white;
         }
-
+        
         .no-results {
             text-align: center;
             padding: 2rem;
             color: var(--text);
             grid-column: 1 / -1;
         }
-
+        
         @media (max-width: 640px) {
             header h1 {
                 font-size: 2rem;
@@ -477,6 +474,31 @@
             });
         }
 
+        function createAppCard(repo) {
+            const appUrl = `https://${baseUrl}/${repo.name}`;
+            const githubUrl = repo.html_url;
+            const description = repo.description || 'אפליקציה שנוצרה על ידי בינה מלאכותית';
+            const category = repo.topics?.[0] || 'web';
+        
+            return `
+                <div class="card" data-category="${category}" data-url="${appUrl}">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <h2 class="tool-name">${repo.name}</h2>
+                            <p>${description}</p>
+                        </div>
+                        <div class="card-back">
+                            <p>${description}</p>
+                            <div class="card-buttons">
+                                <a href="${appUrl}" target="_blank" class="card-button">פתח</a>
+                                <a href="${githubUrl}" target="_blank" class="card-button github">לקבלת הקוד</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
         async function initializeApps() {
             const container = document.getElementById('appsContainer');
             const repos = await fetchRepositories();
@@ -490,6 +512,7 @@
             // Initialize search and filter
             initializeSearchAndFilter();
         }
+    
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', initializeApps);
