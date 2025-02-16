@@ -331,7 +331,7 @@
             },
             {
                 name: "holiday-tool",
-                description: "כלי המציג חגים בשנה מסווימת לפי מדינה. מצויין למי שרוצה לדעת מתי לקבוע טיסות שיצא על חגים",
+                description: "כלי המציג חגים בשנה מסוימת לפי מדינה. מצויין למי שרוצה לדעת מתי לקבוע טיסות שיצא על חגים",
                 category: "tool"
             },
             {
@@ -409,56 +409,8 @@
         }
 
         function initializeCardInteractions() {
-            // Touch interaction variables
-            let touchStartY = 0;
-            let touchStartX = 0;
-            let touchStartTime = 0;
-            const TOUCH_THRESHOLD = 10;
-            const TIME_THRESHOLD = 200;
-
-            // Add touch support for cards
+            // Add click support for cards
             document.querySelectorAll('.card').forEach(card => {
-                card.addEventListener('touchstart', function(e) {
-                    console.log('touchstart event on card'); // DEBUG LOG
-                    touchStartY = e.touches[0].clientY;
-                    touchStartX = e.touches[0].clientX;
-                    touchStartTime = Date.now();
-                }, { passive: true });
-
-                card.addEventListener('touchend', function(e) {
-                    console.log('touchend event on card'); // DEBUG LOG
-                    const touchEndY = e.changedTouches[0].clientY;
-                    const touchEndX = e.changedTouches[0].clientX;
-                    const moveY = Math.abs(touchEndY - touchStartY);
-                    const moveX = Math.abs(touchEndX - touchStartX);
-                    const timeElapsed = Date.now() - touchStartTime;
-
-                    if (moveY > TOUCH_THRESHOLD || moveX > TOUCH_THRESHOLD || timeElapsed > TIME_THRESHOLD) {
-                        return;
-                    }
-
-                    if (e.target.closest('.search-box')) return;
-                    if (e.target.closest('a')) return;
-
-                    const innerCard = this.querySelector('.card-inner');
-                    const wasFlipped = innerCard.classList.contains('flipped');
-
-                    // Remove flipped class from all other cards
-                    document.querySelectorAll('.card-inner.flipped').forEach(otherCard => {
-                        if (otherCard !== innerCard) {
-                            otherCard.classList.remove('flipped');
-                        }
-                    });
-
-                    innerCard.classList.toggle('flipped');
-                    console.log('Card flipped:', innerCard.classList.contains('flipped')); // DEBUG LOG
-
-
-                    if (wasFlipped && e.target.tagName === 'A') {
-                        return true;
-                    }
-                });
-
                 card.addEventListener('click', function(e) { // ADDED CLICK LISTENER
                     console.log('click event on card'); // DEBUG LOG
                     if (e.target.closest('.search-box')) return;
@@ -485,13 +437,13 @@
             });
 
             // Close flipped cards when clicking outside
-            document.addEventListener('touchstart', function(e) {
+            document.addEventListener('click', function(e) { // Changed to click for consistent behavior on both desktop and mobile
                 if (!e.target.closest('.card')) {
                     document.querySelectorAll('.card-inner.flipped').forEach(card => {
                         card.classList.remove('flipped');
                     });
                 }
-            }, { passive: true });
+            });
         }
 
         function initializeSearchAndFilter() {
