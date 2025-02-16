@@ -326,57 +326,57 @@
         const repoList = [
             {
                 name: "landing-page",
-                description: "דף נחיתה פשוט ויפה",
+                description: "דף נחיתה אלגנטי ומרשים, מתאים לקמפיינים שיווקיים.",
                 category: "web"
             },
             {
                 name: "holiday-tool",
-                description: "כלי עזר לתכנון חופשות וחגים",
+                description: "כלי יעיל לתכנון חופשות וחגים, כולל רעיונות לפעילויות וטיולים.",
                 category: "tool"
             },
             {
                 name: "artifact-tool",
-                description: "כלי ליצירת ארטיפקטים דיגיטליים",
+                description: "כלי ליצירת ארטיפקטים דיגיטליים ייחודיים, כמו תמונות, טקסטים ועוד.",
                 category: "tool"
             },
             {
                 name: "pub-map",
-                description: "מפת פאבים וברים בסביבה שלך",
+                description: "מפה אינטראקטיבית של פאבים וברים באזורכם, עם פרטים וביקורות.",
                 category: "web"
             },
             {
                 name: "multi-news",
-                description: "אפליקציית חדשות ממקורות שונים",
+                description: "אפליקציית חדשות המרכזת ידיעות ממקורות שונים, להתעדכנות מקיפה.",
                 category: "web"
             },
             {
                 name: "holiday-recipe",
-                description: "מתכונים מיוחדים לחגים ומועדים",
+                description: "מאגר מתכונים מיוחדים לחגים ומועדים, להכנת ארוחות חגיגיות.",
                 category: "web"
             },
             {
                 name: "recipes-site",
-                description: "אתר מתכונים מגוון וטעים",
+                description: "אתר מתכונים מגוון ועשיר, עם מגוון רחב של מנות טעימות.",
                 category: "web"
             },
             {
                 name: "landing-page1",
-                description: "עוד דף נחיתה אלגנטי",
+                description: "דף נחיתה מודרני ומושך, מתאים לעסקים ומוצרים חדשים.",
                 category: "web"
             },
             {
                 name: "stocks",
-                description: "אפליקציה למעקב אחרי מניות",
-                category: "web"
+                description: "אפליקציה למעקב אחר שערי מניות וניתוח שוק ההון.",
+                category: "tool" // Could be tool or web depending on functionality
             },
             {
                 name: "linktree",
-                description: "דף קישורים מרובים - Linktree",
+                description: "דף 'עץ קישורים' אישי, המאפשר שיתוף מספר קישורים במקום אחד.",
                 category: "web"
             },
             {
                 name: "ai-tools-site",
-                description: "אתר המרכז כלי AI שונים",
+                description: "אתר המרכז מגוון כלי AI שימושיים, לקבלת עזרה במשימות שונות.",
                 category: "tool"
             },
             // Add more repo names and descriptions here
@@ -419,12 +419,14 @@
             // Add touch support for cards
             document.querySelectorAll('.card').forEach(card => {
                 card.addEventListener('touchstart', function(e) {
+                    console.log('touchstart event on card'); // DEBUG LOG
                     touchStartY = e.touches[0].clientY;
                     touchStartX = e.touches[0].clientX;
                     touchStartTime = Date.now();
                 }, { passive: true });
 
                 card.addEventListener('touchend', function(e) {
+                    console.log('touchend event on card'); // DEBUG LOG
                     const touchEndY = e.changedTouches[0].clientY;
                     const touchEndX = e.changedTouches[0].clientX;
                     const moveY = Math.abs(touchEndY - touchStartY);
@@ -449,6 +451,32 @@
                     });
 
                     innerCard.classList.toggle('flipped');
+                    console.log('Card flipped:', innerCard.classList.contains('flipped')); // DEBUG LOG
+
+
+                    if (wasFlipped && e.target.tagName === 'A') {
+                        return true;
+                    }
+                });
+
+                card.addEventListener('click', function(e) { // ADDED CLICK LISTENER
+                    console.log('click event on card'); // DEBUG LOG
+                    if (e.target.closest('.search-box')) return;
+                    if (e.target.closest('a')) return;
+
+                    const innerCard = this.querySelector('.card-inner');
+                    const wasFlipped = innerCard.classList.contains('flipped');
+
+                    // Remove flipped class from all other cards
+                    document.querySelectorAll('.card-inner.flipped').forEach(otherCard => {
+                        if (otherCard !== innerCard) {
+                            otherCard.classList.remove('flipped');
+                        }
+                    });
+
+                    innerCard.classList.toggle('flipped');
+                    console.log('Card flipped (click):', innerCard.classList.contains('flipped')); // DEBUG LOG
+
 
                     if (wasFlipped && e.target.tagName === 'A') {
                         return true;
